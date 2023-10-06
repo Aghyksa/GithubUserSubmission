@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Github User Submission</string>
+    <string name="search_bar_hint">Input Username</string>
+    <string name="tab_text_1">Followers</string>
+    <string name="tab_text_2">Following</string>
+    <string name="followers">Followers</string>
+    <string name="following">Following</string>
+</resources>
