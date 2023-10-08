@@ -1,5 +1,6 @@
 package com.aghyksa.submission.dicoding.adapter
 
+import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -13,11 +14,16 @@ class SectionPagerAdapter(activity: AppCompatActivity, private val username: Str
         var fragment: Fragment? = null
         when (position) {
             0 -> {
-                fragment = FollowersFragment(username)
+                fragment = FollowersFragment()
             }
             1 -> {
-                fragment = FollowingFragment(username)
+                fragment = FollowingFragment()
             }
+        }
+        val bundle = Bundle()
+        bundle.putString(FollowersFragment.EXTRA_USERNAME,username)
+        if (fragment != null) {
+            fragment.arguments = bundle
         }
         return fragment as Fragment
     }
