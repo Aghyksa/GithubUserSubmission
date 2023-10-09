@@ -13,10 +13,13 @@ import com.aghyksa.submission.dicoding.databinding.FragmentFollowBinding
 import com.aghyksa.submission.dicoding.model.User
 import com.aghyksa.submission.dicoding.utils.GenericViewModelFactory
 
-class FollowingFragment(private val username:String): Fragment() {
+class FollowingFragment: Fragment() {
 
     private lateinit var bind : FragmentFollowBinding
-
+    companion object {
+        var EXTRA_USERNAME = "extra_username"
+    }
+    private lateinit var username:String
     private val viewModel: FollowingViewModel by viewModels{
         GenericViewModelFactory.create(
             FollowingViewModel(username)
@@ -36,6 +39,7 @@ class FollowingFragment(private val username:String): Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        username = arguments?.getString(FollowersFragment.EXTRA_USERNAME)!!
         bind = FragmentFollowBinding.bind(view)
         setupViewModel()
         setupRecyclerView()

@@ -11,7 +11,7 @@ import retrofit2.http.Query
 
 interface Api {
     companion object{
-        private const val TOKEN = "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"
+        private const val TOKEN = "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"
     }
 
     @GET("search/users")

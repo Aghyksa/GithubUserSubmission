@@ -5,4 +5,7 @@
     <string name="tab_text_2">Following</string>
     <string name="followers">Followers</string>
     <string name="following">Following</string>
+    <string name="dark_mode">Dark mode</string>
+    <string name="favorite">Favorite</string>
+    <string name="setting">Setting</string>
 </resources>

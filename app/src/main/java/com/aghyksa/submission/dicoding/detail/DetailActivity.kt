@@ -38,6 +38,13 @@ class DetailActivity : AppCompatActivity() {
         setupViewPager()
         setupViewModel()
         setDetail()
+        setListener()
+    }
+
+    private fun setListener() {
+        bind.btnFav.setOnClickListener{
+            viewModel.switchFavorite(this)
+        }
     }
 
     private fun setupViewPager() {
@@ -59,21 +66,39 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setupViewModel() {
-        viewModel.getDetail().observe(this) {
-            if (it != null) {
-                with(bind) {
-                    tvName.text = it.name
-                    tvLogin.text = it.username
-                    tvFollowers.text = "${it.followers} Followers"
-                    tvFollowing.text = "${it.following} Following"
+        with(viewModel){
+            getDetail().observe(this@DetailActivity) {
+                if (it != null) {
+                    with(bind) {
+                        tvName.text = it.name
+                        tvLogin.text = it.username
+                        tvFollowers.text = "${it.followers} Followers"
+                        tvFollowing.text = "${it.following} Following"
+                        Glide.with(this@DetailActivity)
+                            .load(it.avatarUrl)
+                            .transition(DrawableTransitionOptions.withCrossFade())
+                            .centerCrop()
+                            .into(ivAvatar)
+                    }
+                    showLoading(false)
+                }
+            }
+            getFavorite().observe(this@DetailActivity){
+                if(it==null){
                     Glide.with(this@DetailActivity)
-                        .load(it.avatarUrl)
+                        .load(R.drawable.baseline_favorite_border_24)
                         .transition(DrawableTransitionOptions.withCrossFade())
                         .centerCrop()
-                        .into(ivAvatar)
+                        .into(bind.btnFav)
+                }else{
+                    Glide.with(this@DetailActivity)
+                        .load(R.drawable.outline_favorite_24)
+                        .transition(DrawableTransitionOptions.withCrossFade())
+                        .centerCrop()
+                        .into(bind.btnFav)
                 }
-                showLoading(false)
             }
+            setFavorite(this@DetailActivity)
         }
     }
 
